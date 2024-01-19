@@ -1,0 +1,12 @@
+export { default as PhoneNumber } from "./PhoneNumber";
+export { default as MobileNumber } from "./MobileNumber";
+export { default as Whatsapp } from "./Whatsapp";
+export { default as Facebook } from "./Facebook";
+export { default as Instagram } from "./Instagram";
+export { default as Twitter } from "./Twitter";
+export { default as Linkedin } from "./Linkedin";
+export { default as Youtube } from "./Youtube";
+export { default as Tiktok } from "./Tiktok";
+export { default as Pinterest } from "./Pinterest";
+export { default as UpArrow } from "./UpArrow";
+export { default as DownArrow } from "./DownArrow";
