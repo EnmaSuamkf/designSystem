@@ -20,3 +20,4 @@ export {
   useDesignSystem,
 } from "./theme/DesignSystemProvider";
 export { DesignSystemTestingProvider } from "./theme/DesignSystemTestingProvider";
+export { default as DesplegableBox } from "./DesplegableContainer";
