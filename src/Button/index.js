@@ -13,6 +13,70 @@ const StyledButton = styled.button`
   border-radius: ${getThemeValue("$theme_radius_regular")};
   width: ${(props) => (props.cover === "true" ? "100%" : "auto")};
   ${(props) =>
+    props.ml &&
+    css`
+      margin-left: ${getThemeValue(props.ml)};
+    `}
+  ${(props) =>
+    props.mr &&
+    css`
+      margin-right: ${getThemeValue(props.mr)};
+    `}
+  ${(props) =>
+    props.mt &&
+    css`
+      margin-top: ${getThemeValue(props.mt)};
+    `}
+  ${(props) =>
+    props.mb &&
+    css`
+      margin-bottom: ${getThemeValue(props.mb)};
+    `}
+  ${(props) =>
+    props.my &&
+    css`
+      margin-top: ${getThemeValue(props.my)};
+      margin-bottom: ${getThemeValue(props.my)};
+    `}
+    ${(props) =>
+    props.mx &&
+    css`
+      margin-left: ${getThemeValue(props.mx)};
+      margin-right: ${getThemeValue(props.mx)};
+    `}
+  ${(props) =>
+    props.pl &&
+    css`
+      padding-left: ${getThemeValue(props.pl)};
+    `}
+  ${(props) =>
+    props.pr &&
+    css`
+      padding-right: ${getThemeValue(props.pr)};
+    `}
+  ${(props) =>
+    props.pt &&
+    css`
+      padding-top: ${getThemeValue(props.pt)};
+    `}
+  ${(props) =>
+    props.pb &&
+    css`
+      padding-bottom: ${getThemeValue(props.pb)};
+    `}
+  ${(props) =>
+    props.py &&
+    css`
+      padding-top: ${getThemeValue(props.py)};
+      padding-bottom: ${getThemeValue(props.py)};
+    `}
+    ${(props) =>
+    props.px &&
+    css`
+      padding-left: ${getThemeValue(props.px)};
+      padding-right: ${getThemeValue(props.px)};
+    `}
+  ${(props) =>
     props.theme === "neutral" &&
     css`
       background-color: ${getThemeValue("$theme_neutral_color_70")};
