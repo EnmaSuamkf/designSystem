@@ -1,25 +1,27 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import SelectList from "../index";
 
 describe("SelectList", () => {
-  const list = ["item1", "item2", "item3"];
+  const list = [
+    { value: "item1", _id: "1" },
+    { value: "item2", _id: "2" },
+    { value: "item3", _id: "3" },
+  ];
   const callback = jest.fn();
 
   test("renders all items", () => {
-    const { getAllByRole } = render(
-      <SelectList list={list} callback={callback} />,
-    );
-    const items = getAllByRole("option");
-    expect(items).toHaveLength(list.length);
+    render(<SelectList list={list} callback={callback} />);
+    list.forEach((item) => {
+      expect(screen.getByText(item.value)).toBeInTheDocument();
+    });
   });
 
   test("calls callback with selected value on change", () => {
-    const { getByRole } = render(
-      <SelectList list={list} callback={callback} />,
-    );
-    const select = getByRole("combobox");
-    fireEvent.change(select, { target: { value: "item2" } });
-    expect(callback).toHaveBeenCalledWith("item2");
+    render(<SelectList list={list} callback={callback} />);
+    fireEvent.change(screen.getByRole("combobox"), {
+      target: { value: JSON.stringify({ value: "item2", _id: "2" }) },
+    });
+    expect(callback).toHaveBeenCalledWith({ value: "item2", _id: "2" });
   });
 });
