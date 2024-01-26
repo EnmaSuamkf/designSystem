@@ -4,7 +4,8 @@ import Box from "../Box";
 const Notication = ({ message, title, type = "positive" }) => {
   const backgroundColor = {
     positive: "$theme_positive_color",
-    neutral: "$theme_secondary_color_70",
+    neutral: "$theme_neutral_color_30",
+    primary: "$theme_secondary_color_50",
     warning: "$theme_negative_color",
   };
   return (
@@ -44,6 +45,7 @@ const Notication = ({ message, title, type = "positive" }) => {
 Notication.propTypes = {
   message: PropTypes.string.isRequired,
   title: PropTypes.string.isRequired,
-  type: PropTypes.oneOf(["positive", "neutral", "warning"]).isRequired,
+  type: PropTypes.oneOf(["positive", "neutral", "warning", "neutral"])
+    .isRequired,
 };
 export default Notication;

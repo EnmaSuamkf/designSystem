@@ -36,7 +36,7 @@ const StyledSelect = styled.select`
 `;
 
 // eslint-disable-next-line react/prop-types
-const SelectList = ({ list = [], callback }) => {
+const SelectList = ({ list = [], callback = () => {} }) => {
   const handleChange = (e) => {
     const item = list.find((item) =>
       typeof item === "string" ? item : JSON.stringify(item) === e.target.value,
