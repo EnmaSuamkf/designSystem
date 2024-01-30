@@ -33,10 +33,13 @@ const StyledSelect = styled.select`
     css`
       font-family: ${getThemeValue(props.fontFamily)};
     `}
+  ${(props) => css`
+    width: ${props.width || "100%"};
+  `}
 `;
 
 // eslint-disable-next-line react/prop-types
-const SelectList = ({ list = [], callback = () => {} }) => {
+const SelectList = ({ list = [], callback = () => {}, ...rest }) => {
   const handleChange = (e) => {
     const item = list.find((item) =>
       typeof item === "string" ? item : JSON.stringify(item) === e.target.value,
@@ -45,7 +48,7 @@ const SelectList = ({ list = [], callback = () => {} }) => {
   };
 
   return (
-    <StyledSelect onChange={handleChange}>
+    <StyledSelect onChange={handleChange} {...rest}>
       {list.map((item, index) => {
         const isString = typeof item === "string";
         return (
