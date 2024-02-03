@@ -23,11 +23,9 @@ const StyledH5 = styled.h5`
     css`
       font-weight: ${getThemeValue(props.fontWeight)};
     `}
-  ${(props) =>
-    props.textAlign &&
-    css`
-      text-align: ${getThemeValue(props.textAlign)};
-    `}
+  text-align: center;
+  padding: 0px;
+  margin: 0px;
 `;
 const styles = {
   5: {
@@ -35,35 +33,30 @@ const styles = {
     fontSize: "20px",
     fontFamily: "Arial",
     fontWeight: "bold",
-    textAlign: "center",
   },
   4: {
     color: "black",
     fontSize: "18px",
     fontFamily: "Arial",
     fontWeight: "bold",
-    textAlign: "center",
   },
   3: {
     color: "black",
     fontSize: "16px",
     fontFamily: "Arial",
     fontWeight: "bold",
-    textAlign: "center",
   },
   2: {
     color: "black",
     fontSize: "14px",
     fontFamily: "Arial",
     fontWeight: "bold",
-    textAlign: "center",
   },
   1: {
     color: "black",
     fontSize: "12px",
     fontFamily: "Arial",
     fontWeight: "bold",
-    textAlign: "center",
   },
 };
 // eslint-disable-next-line react/prop-types
