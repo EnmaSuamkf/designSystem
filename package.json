@@ -1,6 +1,6 @@
 {
   "name": "design-system-component",
-  "version": "1.0.17",
+  "version": "1.0.20",
   "description": "Developer Pablo Castañeda",
   "main": "dist/index.js",
   "scripts": {
