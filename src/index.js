@@ -24,3 +24,4 @@ export { default as DesplegableBox } from "./DesplegableContainer";
 export { default as SelectList } from "./SelectList";
 export { default as Heading } from "./Heading";
 export { default as ToggleSwitch } from "./ToggleSwitch";
+export { default as BackgroundImage } from "./BackgroundImage";

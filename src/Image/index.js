@@ -5,7 +5,14 @@ import Box from "../Box";
 import Show from "../Show";
 import { LoadingBox } from "../Loading";
 import PropTypes from "prop-types";
-const Image = ({ loadingBannerImage, urlImage, device, width, height }) => {
+const Image = ({
+  loadingBannerImage,
+  urlImage,
+  device,
+  width,
+  height,
+  loadingLabel,
+}) => {
   const defaultWidth = device === "desktop" ? "300px" : "150px";
   const defaultHeight = device === "desktop" ? "150px" : "150px";
   return (
@@ -27,7 +34,7 @@ const Image = ({ loadingBannerImage, urlImage, device, width, height }) => {
             border="1px solid"
             borderColor="$theme_neutral_color_50"
           >
-            <h3>NO IMAGE</h3>
+            {loadingLabel && <h3>{loadingLabel}</h3>}
           </FlexBox>
         </Show>
         <Show when={loadingBannerImage}>
@@ -44,6 +51,7 @@ Image.propTypes = {
   device: PropTypes.string.isRequired,
   width: PropTypes.string,
   height: PropTypes.string,
+  loadingLabel: PropTypes.string,
 };
 
 export default Image;
