@@ -10,3 +10,4 @@ export { default as Tiktok } from "./Tiktok";
 export { default as Pinterest } from "./Pinterest";
 export { default as UpArrow } from "./UpArrow";
 export { default as DownArrow } from "./DownArrow";
+export { default as Medal } from "./Medal";

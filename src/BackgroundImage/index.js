@@ -34,6 +34,7 @@ BackgroundImage.propTypes = {
   backgroundSize: PropTypes.string,
   backgroundPosition: PropTypes.string,
   backgroundRepeat: PropTypes.string,
+  loadingComponent: PropTypes.node,
   children: PropTypes.node,
 };
 
