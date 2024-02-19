@@ -100,6 +100,13 @@ ${(props) =>
     const styles = getProccecedProps(props);
     return styles;
   }}
+  ${(props) =>
+    props.onHoverStyle &&
+    css`
+      &:hover {
+        ${getProccecedProps(props.onHoverStyle)}
+      }
+    `}
 `;
 
 export default Box;

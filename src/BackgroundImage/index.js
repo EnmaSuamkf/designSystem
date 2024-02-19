@@ -10,8 +10,16 @@ const BackgroundImage = ({
   backgroundSize = "cover",
   backgroundPosition = "center",
   backgroundRepeat = "no-repeat",
+  borderRadius,
+  borderTopLeftRadius,
+  borderTopRightRadius,
+  borderBottomLeftRadius,
+  borderBottomRightRadius,
   children,
 }) => {
+  const _borderRadius = borderRadius
+    ? borderRadius
+    : `${borderTopLeftRadius || "0"} ${borderTopRightRadius || "0"} ${borderBottomRightRadius || "0"} ${borderBottomLeftRadius || "0"}`;
   return (
     <Box
       backgroundPosition={backgroundPosition}
@@ -21,6 +29,7 @@ const BackgroundImage = ({
       height={height}
       backgroundImage={`url(${urlImage})`}
       data-testid="background-box"
+      borderRadius={_borderRadius}
     >
       <Show when={Boolean(children)}>{children}</Show>
     </Box>
@@ -36,6 +45,11 @@ BackgroundImage.propTypes = {
   backgroundRepeat: PropTypes.string,
   loadingComponent: PropTypes.node,
   children: PropTypes.node,
+  borderRadius: PropTypes.string,
+  borderTopLeftRadius: PropTypes.string,
+  borderTopRightRadius: PropTypes.string,
+  borderBottomLeftRadius: PropTypes.string,
+  borderBottomRightRadius: PropTypes.string,
 };
 
 export default BackgroundImage;
