@@ -12,3 +12,6 @@ export { default as UpArrow } from "./UpArrow";
 export { default as DownArrow } from "./DownArrow";
 export { default as Medal } from "./Medal";
 export { default as Upload } from "./Upload";
+export { default as LeftArrow } from "./LeftArrow";
+export { default as RightArrow } from "./RightArrow";
+export { default as Add } from "./Add";

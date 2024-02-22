@@ -1,32 +1,10 @@
+/* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
 import React from "react";
 import styled from "styled-components";
 import { getProccecedProps } from "../theme/util.js";
 
-const Input = styled(
-  ({
-    width,
-    height,
-    textAlign,
-    borderRadius,
-    borderTopLeftRadius,
-    borderTopRightRadius,
-    borderBottomLeftRadius,
-    borderBottomRightRadius,
-    padding,
-    margin,
-    marginTop,
-    marginBottom,
-    marginLeft,
-    marginRight,
-    paddingTop,
-    paddingBottom,
-    paddingLeft,
-    paddingRight,
-    backgroundColor,
-    ...otherProps
-  }) => <input {...otherProps} />,
-)`
+const StyledInput = styled.input`
   ${(props) => {
     const {
       width,
@@ -73,5 +51,18 @@ const Input = styled(
     return styles;
   }}
 `;
+
+const Input = React.forwardRef(({ onChange, onClick, ...otherProps }, ref) => {
+  return (
+    <StyledInput
+      ref={ref}
+      onChange={onChange}
+      onClick={onClick}
+      {...otherProps}
+    />
+  );
+});
+
+Input.displayName = "Input";
 
 export default Input;
