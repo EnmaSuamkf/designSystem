@@ -9,7 +9,7 @@ const StyledInput = styled.input`
     const {
       width,
       height,
-      textAlign,
+      textalign,
       borderRadius,
       borderTopLeftRadius,
       borderTopRightRadius,
@@ -30,7 +30,7 @@ const StyledInput = styled.input`
     const styles = getProccecedProps({
       width,
       height,
-      textAlign,
+      textalign,
       borderRadius,
       borderTopLeftRadius,
       borderTopRightRadius,

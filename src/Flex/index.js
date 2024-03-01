@@ -1,30 +1,37 @@
-/* eslint-disable react/no-children-prop */
-/* eslint-disable no-unused-vars */
+/* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
-import { getThemeValue, getProccecedProps } from "../theme/util";
-// Add this comment to add a suffix to the class name
-/* sc-component-id: FlexBox */
-const FlexBox = styled((props) => {
+import { getProccecedProps, getThemeValue } from "../theme/util.js";
+
+const FlexBoxComponent = React.forwardRef((props, ref) => {
   const {
     "data-testid": dataTestId,
     children,
     key,
     className,
     onClick,
-    ref,
+    id,
+    sx,
   } = props;
+
   return (
     <div
       data-testid={dataTestId}
-      children={children}
       key={key}
       className={className}
       onClick={onClick}
+      id={id}
+      style={sx}
       ref={ref}
-    />
+    >
+      {children}
+    </div>
   );
-})`
+});
+
+FlexBoxComponent.displayName = "FlexBoxComponent";
+
+const FlexBox = styled(FlexBoxComponent)`
   display: flex;
   flex-direction: row;
   ${(props) => {

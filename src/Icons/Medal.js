@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { getThemeValue } from "../theme/util";
+import Box from "../Box";
 
 const Medal = ({
   color = "$theme_neutral_color_100",
@@ -8,7 +9,7 @@ const Medal = ({
   height = "20px",
 }) => {
   return (
-    <div>
+    <Box>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         width={width}
@@ -22,7 +23,7 @@ const Medal = ({
           fill={getThemeValue(color)}
         />
       </svg>
-    </div>
+    </Box>
   );
 };
 Medal.propTypes = {

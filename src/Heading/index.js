@@ -24,9 +24,9 @@ const StyledH5 = styled.h5`
       font-weight: ${getThemeValue(props.fontWeight)};
     `}
     ${(props) =>
-    props.textAlign &&
+    props.textalign &&
     css`
-      text-align: ${props.textAlign};
+      text-align: ${props.textalign};
     `}
   padding: 0px;
   margin: 0px;
@@ -64,9 +64,9 @@ const styles = {
   },
 };
 // eslint-disable-next-line react/prop-types
-const Heading = ({ type, color, sx, textAlign = "center", children }) => {
+const Heading = ({ type, color, sx, textalign = "center", children }) => {
   return (
-    <StyledH5 {...styles[type]} color={color} textAlign={textAlign} {...sx}>
+    <StyledH5 {...styles[type]} color={color} textalign={textalign} {...sx}>
       {children}
     </StyledH5>
   );

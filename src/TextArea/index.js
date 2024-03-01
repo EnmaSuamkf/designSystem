@@ -7,7 +7,7 @@ const TextArea = styled(
   ({
     width,
     height,
-    textAlign,
+    textalign,
     verticalAlign,
     borderRadius,
     borderTopLeftRadius,
@@ -32,7 +32,7 @@ const TextArea = styled(
     const {
       width,
       height,
-      textAlign,
+      textalign,
       verticalAlign,
       borderRadius,
       borderTopLeftRadius,
@@ -54,7 +54,7 @@ const TextArea = styled(
     const styles = getProccecedProps({
       width,
       height,
-      textAlign,
+      textalign,
       verticalAlign,
       borderRadius,
       borderTopLeftRadius,
