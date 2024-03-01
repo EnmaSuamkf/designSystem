@@ -17,6 +17,7 @@ const BackgroundImage = ({
   borderBottomRightRadius,
   children,
 }) => {
+  const childreProp = children ? children : <></>;
   const _borderRadius = borderRadius
     ? borderRadius
     : `${borderTopLeftRadius || "0"} ${borderTopRightRadius || "0"} ${borderBottomRightRadius || "0"} ${borderBottomLeftRadius || "0"}`;
@@ -31,10 +32,7 @@ const BackgroundImage = ({
       data-testid="background-box"
       borderRadius={_borderRadius}
     >
-      <Show when={Boolean(children)}>{children}</Show>
-      <Show when={!children}>
-        <></>
-      </Show>
+      <Show when={Boolean(children)}>{childreProp}</Show>
     </Box>
   );
 };
