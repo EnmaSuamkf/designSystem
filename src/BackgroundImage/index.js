@@ -32,6 +32,9 @@ const BackgroundImage = ({
       borderRadius={_borderRadius}
     >
       <Show when={Boolean(children)}>{children}</Show>
+      <Show when={!children}>
+        <></>
+      </Show>
     </Box>
   );
 };
