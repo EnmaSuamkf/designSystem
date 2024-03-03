@@ -26,8 +26,10 @@ const StyledInput = styled.input`
       paddingLeft,
       paddingRight,
       backgroundColor,
+      focusvisible,
+      border,
     } = props;
-    const styles = getProccecedProps({
+    let styles = getProccecedProps({
       width,
       height,
       textalign,
@@ -47,7 +49,15 @@ const StyledInput = styled.input`
       paddingLeft,
       paddingRight,
       backgroundColor,
+      border,
     });
+    if (focusvisible) {
+      styles += `
+        &:focus-visible {
+          ${getProccecedProps(focusvisible)}
+        }
+      `;
+    }
     return styles;
   }}
 `;

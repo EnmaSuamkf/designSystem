@@ -26,3 +26,4 @@ export { default as Heading } from "./Heading";
 export { default as ToggleSwitch } from "./ToggleSwitch";
 export { default as BackgroundImage } from "./BackgroundImage";
 export { default as Tag } from "./Tag";
+export { default as SearchBar } from "./SearchBar";
