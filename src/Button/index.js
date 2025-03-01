@@ -26,12 +26,12 @@ const StyledButton = styled.button`
   ${(props) =>
     props.theme === "primary" &&
     css`
-      background-color: ${getThemeValue("$theme_primary_color_30")};
-      border: 2px solid ${getThemeValue("$theme_primary_color_100")};
+      background-color: ${getThemeValue("$theme_primary_color_30")}; //negro
+      border: 2px solid ${getThemeValue("$theme_primary_color_100")}; //blanco
 
       &:hover {
-        background: ${getThemeValue("$theme_primary_color_100")};
-        color: ${getThemeValue("$theme_neutral_color_0")};
+        background: ${getThemeValue("$theme_primary_color_100")}; //blanco
+        color: ${getThemeValue("$theme_neutral_color_0")}; //blanco
       }
     `}
   ${(props) =>
@@ -67,6 +67,40 @@ const StyledButton = styled.button`
         color: ${getThemeValue("$theme_neutral_color_0")};
       }
     `}
+    ${(props) =>
+    props.customTheme &&
+    props.customTheme.background &&
+    props.customTheme.color &&
+    props.customTheme.borderColor &&
+    props.customTheme.backgroundHover &&
+    props.customTheme.hoverColor &&
+    props.customTheme.borderHoverColor &&
+    css`
+      background-color: ${getThemeValue(
+        props.customTheme.background || "$theme_neutral_color_0",
+      )};
+      color: ${getThemeValue(
+        props.customTheme.color || "$theme_neutral_color_100",
+      )};
+      border: 2px solid
+        ${getThemeValue(
+          props.customTheme.borderColor || "$theme_negative_color",
+        )};
+
+      &:hover {
+        background: ${getThemeValue(
+          props.customTheme.backgroundHover || "$theme_negative_color",
+        )};
+        color: ${getThemeValue(
+          props.customTheme.hoverColor || "$theme_neutral_color_0",
+        )};
+        border: 2px solid
+          ${getThemeValue(
+            props.customTheme.borderHoverColor || "$theme_negative_color",
+          )};
+      }
+    `}
+
 
   ${(props) =>
     props.disabled &&
@@ -90,6 +124,7 @@ const Button = ({
   theme = "primary",
   disabled = false,
   cover = false,
+  customTheme = null,
 }) => {
   return (
     <StyledButton
@@ -97,6 +132,7 @@ const Button = ({
       style={style}
       disabled={disabled}
       theme={theme}
+      customTheme={customTheme}
       cover={cover.toString()}
     >
       {children}
@@ -117,6 +153,7 @@ Button.propTypes = {
     "neutral",
   ]),
   cover: PropTypes.bool,
+  customTheme: PropTypes.shape(),
 };
 
 export default Button;

@@ -24,9 +24,18 @@ const StyledLoadingBox = styled.div`
   width: ${(props) => (props.width ? props.width : "100%")};
   background: linear-gradient(
     90deg,
-    ${getThemeValue("$theme_neutral_color_0")} 25%,
-    ${getThemeValue("$theme_neutral_color_50")} 50%,
-    ${getThemeValue("$theme_neutral_color_70")} 75%
+    ${(props) =>
+        props.firstColor ||
+        getThemeValue(props.firstColor || "$theme_neutral_color_0")}
+      25%,
+    ${(props) =>
+        props.secondColor ||
+        getThemeValue(props.secondColor || "$theme_neutral_color_50")}
+      50%,
+    ${(props) =>
+        props.thirdColor ||
+        getThemeValue(props.thirdColor || "$theme_neutral_color_70")}
+      75%
   );
   background-size: 200% 100%;
   animation: ${loadingAnimation} 2.5s infinite linear;
