@@ -17,3 +17,5 @@ export { default as RightArrow } from "./RightArrow";
 export { default as Add } from "./Add";
 export { default as Google } from "./Google";
 export { default as Check } from "./Check";
+export { default as Reload } from "./Reload";
+export { default as User } from "./User";

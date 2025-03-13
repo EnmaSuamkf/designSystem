@@ -75,6 +75,9 @@ const StyledButton = styled.button`
     props.customTheme.backgroundHover &&
     props.customTheme.hoverColor &&
     props.customTheme.borderHoverColor &&
+    props.customTheme.backgroundFocus &&
+    props.customTheme.focusColor &&
+    props.customTheme.borderFocusColor &&
     css`
       background-color: ${getThemeValue(
         props.customTheme.background || "$theme_neutral_color_0",
@@ -97,6 +100,18 @@ const StyledButton = styled.button`
         border: 2px solid
           ${getThemeValue(
             props.customTheme.borderHoverColor || "$theme_negative_color",
+          )};
+      }
+      &:focus {
+        background: ${getThemeValue(
+          props.customTheme.backgroundFocus || "$theme_negative_color",
+        )};
+        color: ${getThemeValue(
+          props.customTheme.focusColor || "$theme_neutral_color_0",
+        )};
+        border: 2px solid
+          ${getThemeValue(
+            props.customTheme.borderFocusColor || "$theme_negative_color",
           )};
       }
     `}

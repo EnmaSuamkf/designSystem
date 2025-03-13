@@ -10,6 +10,7 @@ const BoxComponent = React.forwardRef((props, ref) => {
     key,
     className,
     onClick,
+    onDoubleClick,
     onMouseEnter,
     onMouseLeave,
     id,
@@ -22,6 +23,7 @@ const BoxComponent = React.forwardRef((props, ref) => {
       key={key}
       className={className}
       onClick={onClick}
+      onDoubleClick={onDoubleClick}
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       id={id}
