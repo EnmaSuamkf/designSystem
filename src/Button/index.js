@@ -5,7 +5,7 @@ import { getThemeValue } from "../theme/util";
 
 const StyledButton = styled.button`
   border: none;
-  color: ${getThemeValue("$theme_neutral_color_100")};
+  color: ${getThemeValue("$theme_neutral_color_0")};
   padding: ${`${getThemeValue("$theme_spacing_1x_small")} ${getThemeValue(
     "$theme_spacing_small",
   )}`};
@@ -37,12 +37,12 @@ const StyledButton = styled.button`
   ${(props) =>
     props.theme === "secondary" &&
     css`
-      background-color: ${getThemeValue("$theme_neutral_color_0")};
-      border: 2px solid ${getThemeValue("$theme_secondary_color_100")};
+      background-color: ${getThemeValue("$theme_neutral_color_100")};
+      border: 2px solid ${getThemeValue("$theme_neutral_color_0")};
 
       &:hover {
-        background: ${getThemeValue("$theme_secondary_color_100")};
-        color: ${getThemeValue("$theme_neutral_color_0")};
+        background: ${getThemeValue("$theme_neutral_color_0")};
+        color: ${getThemeValue("$theme_neutral_color_100")};
       }
     `}
   ${(props) =>
