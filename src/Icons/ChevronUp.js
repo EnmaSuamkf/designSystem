@@ -10,13 +10,18 @@ const Youtube = ({
   return (
     <div>
       <svg
-        xmlns="http://www.w3.org/2000/svg"
         fill={getThemeValue(color)}
         width={width}
         height={height}
-        viewBox="0 0 24 24"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 407.436 407.436"
+        xmlSpace="preserve"
       >
-        <path d="M11.178 19.569a.998.998 0 0 0 1.644 0l9-13A.999.999 0 0 0 21 5H3a1.002 1.002 0 0 0-.822 1.569l9 13z" />
+        <g strokeWidth="0"></g>
+        <g strokeLinecap="round" strokeLinejoin="round"></g>
+        <g>
+          <polygon points="203.718,91.567 0,294.621 21.179,315.869 203.718,133.924 386.258,315.869 407.436,294.621 "></polygon>
+        </g>
       </svg>
     </div>
   );
