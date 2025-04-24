@@ -19,3 +19,4 @@ export { default as Google } from "./Google";
 export { default as Check } from "./Check";
 export { default as Reload } from "./Reload";
 export { default as User } from "./User";
+export { default as MagnifyingGlass } from "./MagnifyingGlass";
