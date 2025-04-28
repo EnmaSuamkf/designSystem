@@ -12,15 +12,18 @@ const Image = ({
   width,
   height,
   loadingLabel,
+  backgroundPosition = "center",
+  backgroundSize = "cover",
+  backgroundRepeat = "no-repeat",
 }) => {
   const defaultWidth = device === "desktop" ? "300px" : "150px";
   const defaultHeight = device === "desktop" ? "150px" : "150px";
   return (
     <>
       <Box
-        backgroundPosition="center"
-        backgroundSize="cover"
-        backgroundRepeat="no-repeat"
+        backgroundPosition={backgroundPosition}
+        backgroundSize={backgroundSize}
+        backgroundRepeat={backgroundRepeat}
         width={width || defaultWidth}
         height={height || defaultHeight}
         backgroundImage={loadingBannerImage ? "" : `url(${urlImage})`}
@@ -52,6 +55,9 @@ Image.propTypes = {
   width: PropTypes.string,
   height: PropTypes.string,
   loadingLabel: PropTypes.string,
+  backgroundPosition: PropTypes.string,
+  backgroundSize: PropTypes.string,
+  backgroundRepeat: PropTypes.string,
 };
 
 export default Image;
