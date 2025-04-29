@@ -66,7 +66,15 @@ const StyledInput = styled.input`
 
 const Input = React.forwardRef(
   (
-    { onChange, onClick, validation, value, validationMessage, ...otherProps },
+    {
+      onChange,
+      onClick,
+      onBlur,
+      validation,
+      value,
+      validationMessage,
+      ...otherProps
+    },
     ref,
   ) => {
     const [error, setError] = useState(false);
@@ -87,6 +95,7 @@ const Input = React.forwardRef(
           value={value}
           onChange={onChange}
           onClick={onClick}
+          onBlur={onBlur}
           {...otherProps}
         />
         {error ? (
