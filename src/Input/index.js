@@ -87,7 +87,7 @@ const Input = React.forwardRef(
           setError(false);
         }
       }
-    }, [validation]);
+    }, [value]);
     return (
       <Box>
         <StyledInput
