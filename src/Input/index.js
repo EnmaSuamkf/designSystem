@@ -73,6 +73,7 @@ const Input = React.forwardRef(
       validation,
       value,
       validationMessage,
+      width = "100%",
       ...otherProps
     },
     ref,
@@ -89,8 +90,9 @@ const Input = React.forwardRef(
       }
     }, [value]);
     return (
-      <Box>
+      <Box width={width}>
         <StyledInput
+          width={width}
           ref={ref}
           value={value}
           onChange={onChange}

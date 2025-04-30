@@ -44,7 +44,7 @@ const TextArea = styled(
       }
     }, [value]);
     return (
-      <Box>
+      <Box width={width}>
         <textarea onChange={onChange} value={value} {...otherProps} />
         {error ? (
           <Box
@@ -53,7 +53,7 @@ const TextArea = styled(
             marginTop="4px"
             marginLeft="4px"
             fontWeight="400"
-            width="100%"
+            width={width}
           >
             {validationMessage}
           </Box>
