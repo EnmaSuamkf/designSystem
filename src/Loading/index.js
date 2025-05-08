@@ -38,10 +38,12 @@ const StyledLoadingBox = styled.div`
       75%
   );
   background-size: 200% 100%;
+  border-radius: ${(props) => getThemeValue(props.borderRadius)};
   animation: ${loadingAnimation} 2.5s infinite linear;
 `;
 
 const StyledLoadingLine = styled(StyledLoadingBox)`
+  border-radius: 4px;
   height: 20px;
 `;
 const Loading = ({ children }) => <StyledLoading>{children}</StyledLoading>;
@@ -51,11 +53,12 @@ Loading.propTypes = {
 };
 
 // eslint-disable-next-line react/prop-types
-export const LoadingBox = ({ height, width }) => {
+export const LoadingBox = ({ height, width, borderRadius = "8px" }) => {
   return (
     <StyledLoadingBox
       height={height}
       width={width}
+      borderRadius={borderRadius}
       data-testid="loading-box"
     ></StyledLoadingBox>
   );
