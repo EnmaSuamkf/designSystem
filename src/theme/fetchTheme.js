@@ -4,7 +4,7 @@ const dotenv = require("dotenv");
 dotenv.config();
 
 const axiosInstance = axios.create({
-  baseURL: "https://laferiadelcotillon-6b0fa1b9e69e.herokuapp.com",
+  baseURL: process.env.API_URL,
   timeout: 10000,
 });
 
