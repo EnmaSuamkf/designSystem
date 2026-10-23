@@ -15,4 +15,15 @@ describe("Notification component", () => {
     expect(getByText("Test Title")).toBeInTheDocument();
     expect(getByText("Test Message")).toBeInTheDocument();
   });
+
+  it("uses readable text color for every type", () => {
+    ["positive", "neutral", "primary", "warning"].forEach((type) => {
+      const { getByRole, unmount } = render(
+        <Notification title="T" message="M" type={type} />,
+      );
+      const style = window.getComputedStyle(getByRole("status"));
+      expect(style.color).not.toBe(style.backgroundColor);
+      unmount();
+    });
+  });
 });

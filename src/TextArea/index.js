@@ -2,6 +2,7 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getProccecedProps } from "../theme/util.js";
+import { getFieldBaseStyles } from "../theme/fieldStyles.js";
 import Box from "../Box/index.js";
 
 const TextArea = styled(
@@ -62,6 +63,8 @@ const TextArea = styled(
     );
   },
 )`
+  ${() => getFieldBaseStyles({ multiline: true })}
+  resize: vertical;
   ${(props) => {
     const {
       width,

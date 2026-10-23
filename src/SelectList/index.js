@@ -1,8 +1,11 @@
 import React from "react";
 import styled, { css } from "styled-components";
 import { getThemeValue } from "../theme/util";
+import { getFieldBaseStyles } from "../theme/fieldStyles";
 
 const StyledSelect = styled.select`
+  ${() => getFieldBaseStyles()}
+  cursor: pointer;
   ${(props) =>
     props.backgroundColor &&
     css`

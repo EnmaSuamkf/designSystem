@@ -24,4 +24,12 @@ describe("SelectList", () => {
     });
     expect(callback).toHaveBeenCalledWith({ value: "item2", _id: "2" });
   });
+
+  test("uses the shared field look (40px, regular radius)", () => {
+    render(<SelectList list={list} callback={callback} />);
+    const s = window.getComputedStyle(screen.getByRole("combobox"));
+    expect(s.height).toBe("40px");
+    expect(s.borderRadius).toBe("5px");
+    expect(s.fontSize).toBe("14px");
+  });
 });
