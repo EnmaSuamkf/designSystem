@@ -56,4 +56,14 @@ describe("SearchBar component", () => {
     fireEvent.click(inputElement);
     expect(handleSearch).toHaveBeenCalled();
   });
+
+  test("SHOULD render a non-pill 40px field containing the icon", () => {
+    render(<SearchBar placeholder={PLACEHOLDER} />);
+    const wrapper = screen.getByPlaceholderText(PLACEHOLDER).closest("div")
+      .parentElement.parentElement;
+    const s = window.getComputedStyle(wrapper);
+    expect(s.height).toBe("40px");
+    expect(s.borderRadius).toBe("5px");
+    expect(screen.getByTestId("search-icon")).toBeInTheDocument();
+  });
 });

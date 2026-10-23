@@ -1,44 +1,61 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Box from "../Box";
+import styled from "styled-components";
+import { getThemeValue, getReadableTextColor } from "../theme/util.js";
+
+const FONT_STACK =
+  'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+
+const BACKGROUND_TOKENS = {
+  positive: "$theme_positive_color",
+  neutral: "$theme_neutral_color_30",
+  primary: "$theme_secondary_color_50",
+  warning: "$theme_negative_color",
+};
+
+const Container = styled.div`
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+  padding: 12px 16px;
+  font-family: ${FONT_STACK};
+  border-radius: ${() => getThemeValue("$theme_radius_regular")};
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  background-color: ${({ $background }) => $background};
+  color: ${({ $color }) => $color};
+`;
+
+const Title = styled.div`
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+`;
+
+const Message = styled.div`
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+`;
+
 const Notication = ({ message, title, type = "positive" }) => {
-  const backgroundColor = {
-    positive: "$theme_positive_color",
-    neutral: "$theme_neutral_color_30",
-    primary: "$theme_secondary_color_50",
-    warning: "$theme_negative_color",
-  };
+  const background = getThemeValue(
+    BACKGROUND_TOKENS[type] || BACKGROUND_TOKENS.positive,
+  );
+  // Pick white or dark text depending on the contrast with the palette color.
+  const color = getReadableTextColor(
+    background,
+    getThemeValue("$theme_neutral_color_0"),
+    getThemeValue("$theme_neutral_color_100"),
+  );
   return (
-    <Box
-      display="flex"
-      flexDirection="column"
-      alignItems="baseline"
-      justifyContent="center"
-      borderRadius="$theme_radius_regular"
-      boxDhadow="0 0 10px 0 rgba(0, 0, 0, 0.1)"
-      padding="$theme_spacing_small"
-      width="100%"
-      height="100%"
-      backgroundColor={backgroundColor[type]}
-    >
-      <Box
-        fontSize="14px"
-        fontWeight="600"
-        color="$theme_neutral_color_0"
-        marginBottom="$theme_spacing_small"
-        className="notification-title"
-      >
-        {title}
-      </Box>
-      <Box
-        fontSize="14px"
-        fontWeight="400"
-        color="$theme_neutral_color_0"
-        marginBottom="$theme_spacing_small"
-      >
-        {message}
-      </Box>
-    </Box>
+    <Container $background={background} $color={color} role="status">
+      <Title className="notification-title">{title}</Title>
+      <Message>{message}</Message>
+    </Container>
   );
 };
 

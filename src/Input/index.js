@@ -3,9 +3,11 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getProccecedProps } from "../theme/util.js";
+import { getFieldBaseStyles } from "../theme/fieldStyles.js";
 import Box from "../Box/index.js";
 import { use } from "react";
 const StyledInput = styled.input`
+  ${() => getFieldBaseStyles()}
   ${(props) => {
     const {
       width,

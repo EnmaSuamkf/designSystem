@@ -1,75 +1,123 @@
 import React from "react";
 import PropTypes from "prop-types";
 import styled, { css } from "styled-components";
-import { getThemeValue } from "../theme/util";
+import {
+  ensureContrast,
+  getReadableTextColor,
+  getThemeValue,
+  shadeColor,
+  tintColor,
+} from "../theme/util";
+
+const FONT_STACK =
+  'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
+
+const t = getThemeValue;
+
+// Text color for a filled background: white when it reaches 4.5:1, otherwise
+// the better of white / neutral_100 (keeps the button readable on any palette).
+const textOn = (background) =>
+  getReadableTextColor(
+    background,
+    t("$theme_neutral_color_0"),
+    t("$theme_neutral_color_100"),
+  );
+
+const variantStyles = (variant) => {
+  switch (variant) {
+    case "primary": {
+      const bg = t("$theme_primary_color_100");
+      const hover = t("$theme_primary_color_90");
+      return css`
+        background-color: ${bg};
+        border-color: ${bg};
+        color: ${textOn(bg)};
+        &:hover:not(:disabled) {
+          background-color: ${hover};
+          border-color: ${hover};
+          color: ${textOn(hover)};
+        }
+      `;
+    }
+    case "positive": {
+      const bg = t("$theme_positive_color");
+      const hover = shadeColor(bg, 0.12);
+      return css`
+        background-color: ${bg};
+        border-color: ${bg};
+        color: ${textOn(bg)};
+        &:hover:not(:disabled) {
+          background-color: ${hover};
+          border-color: ${hover};
+          color: ${textOn(hover)};
+        }
+      `;
+    }
+    case "negative": {
+      const bg = t("$theme_negative_color");
+      const surface = t("$theme_neutral_color_0");
+      return css`
+        background-color: ${surface};
+        border-color: ${bg};
+        color: ${ensureContrast(bg, surface)};
+        &:hover:not(:disabled) {
+          background-color: ${bg};
+          border-color: ${bg};
+          color: ${textOn(bg)};
+        }
+      `;
+    }
+    case "neutral":
+      return css`
+        background-color: transparent;
+        border-color: transparent;
+        color: ${t("$theme_neutral_color_100")};
+        &:hover:not(:disabled) {
+          background-color: ${tintColor(t("$theme_neutral_color_100"), 0.08)};
+        }
+      `;
+    case "secondary":
+      return css`
+        background-color: ${t("$theme_neutral_color_0")};
+        border-color: ${t("$theme_neutral_color_50")};
+        color: ${t("$theme_neutral_color_100")};
+        &:hover:not(:disabled) {
+          background-color: ${tintColor(t("$theme_neutral_color_100"), 0.04)};
+          border-color: ${t("$theme_neutral_color_70")};
+        }
+      `;
+    default:
+      return "";
+  }
+};
 
 const StyledButton = styled.button`
-  border: none;
-  color: ${getThemeValue("$theme_neutral_color_0")};
-  padding: ${`${getThemeValue("$theme_spacing_1x_small")} ${getThemeValue(
-    "$theme_spacing_small",
-  )}`};
-  cursor: pointer;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 36px;
+  padding: 8px 16px;
+  border: 1px solid transparent;
   border-radius: ${getThemeValue("$theme_radius_regular")};
+  font-family: ${FONT_STACK};
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  cursor: pointer;
+  transition:
+    background-color 0.15s ease,
+    border-color 0.15s ease,
+    color 0.15s ease,
+    box-shadow 0.15s ease;
   width: ${(props) => (props.cover === "true" ? "100%" : "auto")};
-  ${(props) =>
-    props.theme === "neutral" &&
-    css`
-      background-color: ${getThemeValue("$theme_neutral_color_70")};
-      border: 2px solid ${getThemeValue("$theme_neutral_color_100")};
+  ${(props) => variantStyles(props.theme)}
 
-      &:hover {
-        background: ${getThemeValue("$theme_neutral_color_70")};
-        color: ${getThemeValue("$theme_neutral_color_100")};
-      }
-    `}
+  &:focus-visible {
+    outline: none;
+    box-shadow: 0 0 0 3px ${() => t("$theme_secondary_color_70")};
+  }
   ${(props) =>
-    props.theme === "primary" &&
-    css`
-      background-color: ${getThemeValue("$theme_primary_color_30")}; //negro
-      border: 2px solid ${getThemeValue("$theme_primary_color_100")}; //blanco
-
-      &:hover {
-        background: ${getThemeValue("$theme_primary_color_100")}; //blanco
-        color: ${getThemeValue("$theme_neutral_color_0")}; //blanco
-      }
-    `}
-  ${(props) =>
-    props.theme === "secondary" &&
-    css`
-      background-color: ${getThemeValue("$theme_neutral_color_100")};
-      border: 2px solid ${getThemeValue("$theme_neutral_color_0")};
-
-      &:hover {
-        background: ${getThemeValue("$theme_neutral_color_0")};
-        color: ${getThemeValue("$theme_neutral_color_100")};
-      }
-    `}
-  ${(props) =>
-    props.theme === "positive" &&
-    css`
-      background-color: ${getThemeValue("$theme_neutral_color_0")};
-      color: ${getThemeValue("$theme_neutral_color_100")};
-      border: 2px solid ${getThemeValue("$theme_positive_color")};
-
-      &:hover {
-        background: ${getThemeValue("$theme_positive_color")};
-        color: ${getThemeValue("$theme_neutral_color_0")};
-      }
-    `}
-  ${(props) =>
-    props.theme === "negative" &&
-    css`
-      background-color: ${getThemeValue("$theme_neutral_color_0")};
-      color: ${getThemeValue("$theme_neutral_color_100")};
-      border: 2px solid ${getThemeValue("$theme_negative_color")};
-
-      &:hover {
-        background: ${getThemeValue("$theme_negative_color")};
-        color: ${getThemeValue("$theme_neutral_color_0")};
-      }
-    `}
-    ${(props) =>
     props.customTheme &&
     props.customTheme.background &&
     props.customTheme.color &&
@@ -118,19 +166,15 @@ const StyledButton = styled.button`
       }
     `}
 
-
   ${(props) =>
     props.disabled &&
     css`
-      background-color: ${getThemeValue("$theme_neutral_color_0")};
-      border: 2px solid ${getThemeValue("$theme_neutral_color_50")};
-      color: ${getThemeValue("$theme_neutral_color_50")};
-      cursor: unset;
-
-      &:hover {
-        background: ${getThemeValue("$theme_neutral_color_0")};
-        color: ${getThemeValue("$theme_neutral_color_50")};
-      }
+      background-color: ${tintColor(t("$theme_neutral_color_100"), 0.06)};
+      border-color: ${t("$theme_neutral_color_50")};
+      color: ${t("$theme_neutral_color_70")};
+      opacity: 0.55;
+      cursor: not-allowed;
+      box-shadow: none;
     `}
 `;
 
