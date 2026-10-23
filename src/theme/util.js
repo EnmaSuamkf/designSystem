@@ -18,12 +18,33 @@ const readSavedTheme = () => {
   }
 };
 
+let previewTheme = null;
+
 /**
- * Resolves a theme token. Order: saved theme (localStorage.theme) ->
- * static defaults in theme.js -> the raw input (for non-token values such as
- * "100%", "none" or unknown tokens, which are returned untouched).
+ * In-memory preview override. Only used to preview a draft theme (e.g. inside
+ * the backoffice preview iframe). It never touches localStorage or the API.
+ * Passing null or an empty object clears it.
+ */
+export const setPreviewTheme = (tokens) => {
+  previewTheme =
+    tokens && typeof tokens === "object" && Object.keys(tokens).length
+      ? tokens
+      : null;
+};
+
+/**
+ * Resolves a theme token. Order: preview override (setPreviewTheme) ->
+ * saved theme (localStorage.theme) -> static defaults in theme.js -> the raw
+ * input (for non-token values such as "100%", "none" or unknown tokens, which
+ * are returned untouched).
  */
 export const getThemeValue = (token) => {
+  const previewValue = previewTheme && previewTheme[token];
+
+  if (previewValue) {
+    return previewValue;
+  }
+
   const themeValues = readSavedTheme()[token];
 
   if (themeValues) {

@@ -11,7 +11,11 @@ export const FONT_STACK =
 export const getFieldBaseStyles = ({ multiline = false } = {}) => `
   box-sizing: border-box;
   ${multiline ? "min-height: 40px;" : "height: 40px;"}
-  padding: ${multiline ? "8px 12px" : "0 12px"};
+  padding: ${
+    multiline
+      ? `${getThemeValue("$theme_spacing_1x_small")} ${getThemeValue("$theme_spacing_small")}`
+      : `0 ${getThemeValue("$theme_spacing_small")}`
+  };
   border: 1px solid ${getThemeValue("$theme_neutral_color_50")};
   border-radius: ${getThemeValue("$theme_radius_regular")};
   background-color: ${getThemeValue("$theme_neutral_color_0")};

@@ -21,7 +21,8 @@ const Container = styled.div`
   justify-content: center;
   gap: 4px;
   width: 100%;
-  padding: 12px 16px;
+  padding: ${() => getThemeValue("$theme_spacing_small")}
+    ${() => getThemeValue("$theme_spacing_base")};
   font-family: ${FONT_STACK};
   border-radius: ${() => getThemeValue("$theme_radius_regular")};
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
