@@ -1,6 +1,6 @@
 {
   "name": "design-system-component",
-  "version": "1.0.48",
+  "version": "1.0.50",
   "description": "Developer Pablo Castañeda",
   "main": "dist/index.js",
   "scripts": {
@@ -9,7 +9,6 @@
     "start": "env-cmd npm run webpack:start",
     "build": "npx babel src --out-dir dist --ignore '**/tests/**/*.js'",
     "prepack": "npm run build && node postbuild.js",
-    "fetchThemeSystemDesingComponent": "node ./src/systemDesignComponent/theme/fetchTheme.js",
     "lint": "eslint ./src/**/*",
     "lint:fix": "eslint ./src/**/* --fix",
     "prepare": "husky install"

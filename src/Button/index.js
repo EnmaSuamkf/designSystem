@@ -49,6 +49,7 @@ const StyledButton = styled.button`
     props.theme === "positive" &&
     css`
       background-color: ${getThemeValue("$theme_neutral_color_0")};
+      color: ${getThemeValue("$theme_neutral_color_100")};
       border: 2px solid ${getThemeValue("$theme_positive_color")};
 
       &:hover {
@@ -60,6 +61,7 @@ const StyledButton = styled.button`
     props.theme === "negative" &&
     css`
       background-color: ${getThemeValue("$theme_neutral_color_0")};
+      color: ${getThemeValue("$theme_neutral_color_100")};
       border: 2px solid ${getThemeValue("$theme_negative_color")};
 
       &:hover {
