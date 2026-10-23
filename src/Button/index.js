@@ -97,7 +97,8 @@ const StyledButton = styled.button`
   align-items: center;
   justify-content: center;
   min-height: 36px;
-  padding: 8px 16px;
+  padding: ${() => getThemeValue("$theme_spacing_1x_small")}
+    ${() => getThemeValue("$theme_spacing_base")};
   border: 1px solid transparent;
   border-radius: ${getThemeValue("$theme_radius_regular")};
   font-family: ${FONT_STACK};

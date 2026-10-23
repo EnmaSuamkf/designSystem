@@ -1,5 +1,6 @@
 import {
   getThemeValue,
+  setPreviewTheme,
   getProccecedProps,
   colorWithOpacity,
   getContrastRatio,
@@ -26,6 +27,56 @@ describe("util", () => {
       expect(getThemeValue("$theme_neutral_color_0")).toBe(
         defaultTheme.$theme_neutral_color_0,
       );
+    });
+
+    describe("preview override (setPreviewTheme)", () => {
+      afterEach(() => {
+        setPreviewTheme(null);
+        localStorage.clear();
+      });
+
+      it("overrides localStorage.theme while set", () => {
+        localStorage.setItem(
+          "theme",
+          JSON.stringify({ $theme_primary_color_100: "#BE1A6F" }),
+        );
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        expect(getThemeValue("$theme_primary_color_100")).toBe("#123456");
+      });
+
+      it("clearing the override restores localStorage.theme", () => {
+        localStorage.setItem(
+          "theme",
+          JSON.stringify({ $theme_primary_color_100: "#BE1A6F" }),
+        );
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        setPreviewTheme(null);
+        expect(getThemeValue("$theme_primary_color_100")).toBe("#BE1A6F");
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        setPreviewTheme({});
+        expect(getThemeValue("$theme_primary_color_100")).toBe("#BE1A6F");
+      });
+
+      it("falls back to static defaults for tokens missing from the override", () => {
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        expect(getThemeValue("$theme_positive_color")).toBe("#6bcf00");
+      });
+
+      it("returns the raw token for unknown tokens even with an override", () => {
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        expect(getThemeValue("$theme_does_not_exist")).toBe(
+          "$theme_does_not_exist",
+        );
+      });
+
+      it("never writes to localStorage", () => {
+        const setItemSpy = jest.spyOn(Storage.prototype, "setItem");
+        setPreviewTheme({ $theme_primary_color_100: "#123456" });
+        getThemeValue("$theme_primary_color_100");
+        setPreviewTheme(null);
+        expect(setItemSpy).not.toHaveBeenCalled();
+        setItemSpy.mockRestore();
+      });
     });
 
     describe("fallback to static defaults", () => {

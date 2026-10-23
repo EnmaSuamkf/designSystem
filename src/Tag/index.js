@@ -21,7 +21,7 @@ const StatusPill = styled.span`
   display: inline-flex;
   align-items: center;
   box-sizing: border-box;
-  padding: 2px 10px;
+  padding: ${() => getThemeValue("$theme_spacing_tiny")} 10px;
   border-radius: ${() => getThemeValue("$theme_radius_full")};
   font-family:
     system-ui,
