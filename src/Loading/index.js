@@ -2,6 +2,8 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import { getThemeValue } from "../theme/util";
+import Box from "../Box";
+import FlexBox from "../Flex";
 import styled, { keyframes } from "styled-components";
 
 const loadingAnimation = keyframes`
@@ -71,6 +73,47 @@ export const LoadingLine = ({ width }) => {
       data-testid="loading-line"
     ></StyledLoadingLine>
   );
+};
+
+// Full-screen skeleton shown while an app boots. Desktop: side column + content
+// (20% / 80%). Mobile has no side column, so it mimics the real screen: header
+// bar, page title and stacked cards. The consumer tells which one to use.
+export const LoadingPage = ({ isMobile = false }) => {
+  if (isMobile) {
+    return (
+      <FlexBox
+        data-testid="app-loading-mobile"
+        flexDirection="column"
+        width="100%"
+        minHeight="100vh"
+        padding="0px 16px 16px"
+        boxSizing="border-box"
+      >
+        <LoadingBox height="56px" borderRadius="0px" />
+        <Box width="55%">
+          <LoadingBox height="28px" />
+        </Box>
+        <FlexBox flexDirection="column" gap="12px">
+          <LoadingBox height="120px" />
+          <LoadingBox height="120px" />
+          <LoadingBox height="120px" />
+        </FlexBox>
+      </FlexBox>
+    );
+  }
+  return (
+    <FlexBox data-testid="app-loading-desktop" width="100%" height="100vh">
+      <Box width="20%">
+        <LoadingBox />
+      </Box>
+      <Box width="80%">
+        <LoadingBox />
+      </Box>
+    </FlexBox>
+  );
+};
+LoadingPage.propTypes = {
+  isMobile: PropTypes.bool,
 };
 
 export default Loading;

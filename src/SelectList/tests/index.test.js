@@ -33,3 +33,14 @@ describe("SelectList", () => {
     expect(s.fontSize).toBe("14px");
   });
 });
+
+describe("SelectList responsive", () => {
+  test("SHOULD be full width with a touch-friendly size only on mobile", () => {
+    render(<SelectList list={[{ value: "a", _id: "1" }]} width="50%" />);
+    const rules = [...document.styleSheets]
+      .flatMap((sheet) => [...sheet.cssRules].map((rule) => rule.cssText))
+      .join("\n");
+    expect(rules).toContain("@media (max-width: 767px)");
+    expect(rules).toContain("min-height: 44px");
+  });
+});

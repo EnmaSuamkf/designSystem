@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
-import { getProccecedProps, getThemeValue } from "../theme/util.js";
+import {
+  getMobileStyles,
+  getProccecedProps,
+  getThemeValue,
+} from "../theme/util.js";
+import { mobileOnly } from "../theme/breakpoints";
 
 const FlexBoxComponent = React.forwardRef((props, ref) => {
   const {
@@ -101,6 +106,11 @@ const FlexBox = styled(FlexBoxComponent)`
     css`
       padding-left: ${getThemeValue(props.px)};
       padding-right: ${getThemeValue(props.px)};
+    `}
+  ${(props) =>
+    props.mobile &&
+    mobileOnly`
+      ${getMobileStyles(props.mobile)}
     `}
 `;
 

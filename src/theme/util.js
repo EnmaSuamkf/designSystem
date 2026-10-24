@@ -166,6 +166,8 @@ const camelToKebab = (str) => {
 
 export const getProccecedProps = (props) => {
   const data = Object.keys(props).reduce((acc, key) => {
+    // "mobile" holds the responsive overrides (see getMobileStyles), it is not a css property.
+    if (key === "mobile") return acc;
     const value = props[key];
     const valuesArray = value && typeof value === "string" && value?.split(" ");
     const kebabKey = camelToKebab(key);
@@ -182,6 +184,38 @@ export const getProccecedProps = (props) => {
   }, "");
   return data;
 };
+
+const SPACING_PROPS = {
+  ml: ["margin-left"],
+  mr: ["margin-right"],
+  mt: ["margin-top"],
+  mb: ["margin-bottom"],
+  my: ["margin-top", "margin-bottom"],
+  mx: ["margin-left", "margin-right"],
+  pl: ["padding-left"],
+  pr: ["padding-right"],
+  pt: ["padding-top"],
+  pb: ["padding-bottom"],
+  py: ["padding-top", "padding-bottom"],
+  px: ["padding-left", "padding-right"],
+};
+
+/**
+ * Turns the object of the "mobile" prop (same keys as the component props,
+ * including the ml/px style shorthands) into css declarations. Wrap the result
+ * with mobileOnly to apply it only below the mobile breakpoint.
+ */
+export const getMobileStyles = (mobile = {}) =>
+  Object.keys(mobile).reduce((acc, key) => {
+    const value = mobile[key];
+    if (SPACING_PROPS[key]) {
+      const themeValue = getThemeValue(value);
+      return `${acc}${SPACING_PROPS[key]
+        .map((cssProp) => ` ${cssProp}: ${themeValue};`)
+        .join("")}`;
+    }
+    return `${acc}${getProccecedProps({ [key]: value })}`;
+  }, "");
 
 const hexToRgb = (hex) => {
   const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);

@@ -1,7 +1,12 @@
 /* eslint-disable react/prop-types */
 import React from "react";
 import styled, { css } from "styled-components";
-import { getProccecedProps, getThemeValue } from "../theme/util.js";
+import {
+  getMobileStyles,
+  getProccecedProps,
+  getThemeValue,
+} from "../theme/util.js";
+import { mobileOnly } from "../theme/breakpoints";
 
 const BoxComponent = React.forwardRef((props, ref) => {
   const {
@@ -112,6 +117,11 @@ ${(props) =>
       &:hover {
         ${getProccecedProps(props.onHoverStyle)}
       }
+    `}
+  ${(props) =>
+    props.mobile &&
+    mobileOnly`
+      ${getMobileStyles(props.mobile)}
     `}
 `;
 
