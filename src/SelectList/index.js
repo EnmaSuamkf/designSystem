@@ -2,6 +2,7 @@ import React from "react";
 import styled, { css } from "styled-components";
 import { getThemeValue } from "../theme/util";
 import { getFieldBaseStyles } from "../theme/fieldStyles";
+import { mobileOnly } from "../theme/breakpoints";
 
 const StyledSelect = styled.select`
   ${() => getFieldBaseStyles()}
@@ -38,6 +39,14 @@ const StyledSelect = styled.select`
     `}
   ${(props) => css`
     width: ${props.width || "100%"};
+  `}
+  ${mobileOnly`
+    width: 100%;
+    max-width: 100%;
+    min-height: 44px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+    box-sizing: border-box;
   `}
 `;
 
