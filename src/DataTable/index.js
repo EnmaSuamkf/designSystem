@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import styled from "styled-components";
 import { getThemeValue } from "../theme/util";
 import { mobileOnly } from "../theme/breakpoints";
+import Button from "../Button";
 
 const FONT_STACK =
   'system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif';
@@ -164,55 +165,142 @@ DataCards.propTypes = {
   rows: rowsPropType.isRequired,
 };
 
+export const Toolbar = styled.div`
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 16px;
+  font-family: ${FONT_STACK};
+  font-size: 14px;
+`;
+
+const cellToExportValue = (cell) => {
+  if (cell === null || cell === undefined) {
+    return "";
+  }
+  if (typeof cell === "string" || typeof cell === "number") {
+    return String(cell);
+  }
+  return "";
+};
+
+export const exportDataTableToExcel = ({
+  columns,
+  rows,
+  filename = "export",
+}) => {
+  const exportColumns = columns.filter(({ key }) => key !== ACTIONS_KEY);
+  const headerLine = exportColumns
+    .map(({ header }) => `"${String(header ?? "").replace(/"/g, '""')}"`)
+    .join(",");
+  const bodyLines = rows.map(({ cells }) =>
+    exportColumns
+      .map(({ key }) => {
+        const value = cellToExportValue(cells[key]);
+        return `"${value.replace(/"/g, '""')}"`;
+      })
+      .join(","),
+  );
+  const csvContent = `\ufeff${[headerLine, ...bodyLines].join("\n")}`;
+  const blob = new Blob([csvContent], { type: "text/csv;charset=utf-8;" });
+  const url = URL.createObjectURL(blob);
+  const link = document.createElement("a");
+  link.href = url;
+  link.download = `${filename}.csv`;
+  link.click();
+  URL.revokeObjectURL(url);
+};
+
+export const DataTableExportButton = ({
+  columns,
+  rows,
+  filename = "export",
+  label = "Exportar Excel",
+  ...buttonProps
+}) => (
+  <Button
+    type="button"
+    variant="secondary"
+    data-testid="data-table-export-button"
+    onClick={() => exportDataTableToExcel({ columns, rows, filename })}
+    {...buttonProps}
+  >
+    {label}
+  </Button>
+);
+
+DataTableExportButton.propTypes = {
+  columns: columnsPropType,
+  rows: rowsPropType,
+  filename: PropTypes.string,
+  label: PropTypes.string,
+};
+
+const DesktopTable = ({ columns, rows }) => (
+  <Scroll>
+    <Table>
+      <thead>
+        <tr>
+          {columns.map(({ key, header, align, width }) => (
+            <Th key={key} $align={align} $width={width} scope="col">
+              {header}
+            </Th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {rows.map(({ key, cells }) => (
+          <Tr key={key}>
+            {columns.map(({ key: columnKey, align }) => (
+              <Td key={columnKey} $align={align}>
+                {cells[columnKey]}
+              </Td>
+            ))}
+          </Tr>
+        ))}
+      </tbody>
+    </Table>
+  </Scroll>
+);
+
 // Table from the mobile breakpoint up; below it every row becomes a card with
 // one label/value line per column (the column header is the label) and the
 // "actions" column as a full-width block. The consumer tells which one to use.
-const DataTable = ({ columns, rows, isMobile = false }) => {
-  if (isMobile) return <DataCards columns={columns} rows={rows} />;
+const DataTable = ({ columns, rows, isMobile = false, exportExcel }) => {
+  const tableContent = isMobile ? (
+    <DataCards columns={columns} rows={rows} />
+  ) : (
+    <DesktopTable columns={columns} rows={rows} />
+  );
+
+  if (!exportExcel) {
+    return tableContent;
+  }
+
   return (
-    <Scroll>
-      <Table>
-        <thead>
-          <tr>
-            {columns.map(({ key, header, align, width }) => (
-              <Th key={key} $align={align} $width={width} scope="col">
-                {header}
-              </Th>
-            ))}
-          </tr>
-        </thead>
-        <tbody>
-          {rows.map(({ key, cells }) => (
-            <Tr key={key}>
-              {columns.map(({ key: columnKey, align }) => (
-                <Td key={columnKey} $align={align}>
-                  {cells[columnKey]}
-                </Td>
-              ))}
-            </Tr>
-          ))}
-        </tbody>
-      </Table>
-    </Scroll>
+    <>
+      <Toolbar>
+        <DataTableExportButton
+          columns={columns}
+          rows={rows}
+          filename={exportExcel.filename}
+          label={exportExcel.label}
+        />
+      </Toolbar>
+      {tableContent}
+    </>
   );
 };
 
 DataTable.propTypes = {
   isMobile: PropTypes.bool,
-  columns: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.string.isRequired,
-      header: PropTypes.node,
-      align: PropTypes.oneOf(["left", "center", "right"]),
-      width: PropTypes.string,
-    }),
-  ).isRequired,
-  rows: PropTypes.arrayOf(
-    PropTypes.shape({
-      key: PropTypes.oneOfType([PropTypes.string, PropTypes.number]).isRequired,
-      cells: PropTypes.object.isRequired,
-    }),
-  ).isRequired,
+  exportExcel: PropTypes.shape({
+    filename: PropTypes.string,
+    label: PropTypes.string,
+  }),
+  columns: columnsPropType.isRequired,
+  rows: rowsPropType.isRequired,
 };
 
 export const RowActions = styled.div`
@@ -286,16 +374,6 @@ export const GroupTitle = styled.h2`
   &:first-child {
     margin-top: 0;
   }
-`;
-
-export const Toolbar = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 16px;
-  margin-bottom: 16px;
-  font-family: ${FONT_STACK};
-  font-size: 14px;
 `;
 
 export default DataTable;

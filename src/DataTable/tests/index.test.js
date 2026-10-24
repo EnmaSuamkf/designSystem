@@ -1,6 +1,12 @@
 import React from "react";
 import { render, screen, within } from "@testing-library/react";
-import DataTable, { ItemList, ItemRow, RowActions } from "../index";
+import DataTable, {
+  ItemList,
+  ItemRow,
+  RowActions,
+  DataTableExportButton,
+  exportDataTableToExcel,
+} from "../index";
 
 const columns = [
   { key: "name", header: "Nombre" },
@@ -72,6 +78,47 @@ describe("DataTable", () => {
     screen.getByText("Ver").click();
     expect(onClick).toHaveBeenCalledTimes(1);
     expect(screen.queryByText("Acciones")).not.toBeInTheDocument();
+  });
+
+  test("exportDataTableToExcel SHOULD create a downloadable csv file", () => {
+    const createObjectURL = jest.fn(() => "blob:url");
+    const revokeObjectURL = jest.fn();
+    const click = jest.fn();
+    global.URL.createObjectURL = createObjectURL;
+    global.URL.revokeObjectURL = revokeObjectURL;
+    const originalCreateElement = document.createElement.bind(document);
+    document.createElement = jest.fn((tag) => {
+      if (tag === "a") {
+        return { click, href: "", download: "" };
+      }
+      return originalCreateElement(tag);
+    });
+
+    exportDataTableToExcel({
+      columns,
+      rows,
+      filename: "stock",
+    });
+
+    expect(createObjectURL).toHaveBeenCalled();
+    expect(click).toHaveBeenCalled();
+    document.createElement = originalCreateElement;
+  });
+
+  test("DataTable with exportExcel SHOULD render export button in toolbar", () => {
+    render(
+      <DataTable
+        columns={columns}
+        rows={rows}
+        exportExcel={{ filename: "stock", label: "Exportar" }}
+      />,
+    );
+    expect(screen.getByText("Exportar")).toBeInTheDocument();
+  });
+
+  test("DataTableExportButton SHOULD be available for custom toolbars", () => {
+    render(<DataTableExportButton columns={columns} rows={rows} />);
+    expect(screen.getByText("Exportar Excel")).toBeInTheDocument();
   });
 
   test("ItemRow SHOULD render content and actions", () => {
