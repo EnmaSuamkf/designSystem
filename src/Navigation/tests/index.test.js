@@ -22,10 +22,10 @@ const ControlledAccordion = () => {
         icon={<span data-testid="icon">icon</span>}
         onClick={() => setExpanded((current) => !current)}
       >
-        Catálogo
+        Catalog
       </AccordionButton>
       <AccordionPanel id="catalog-panel" expanded={expanded}>
-        <NavigationLink href="/products">Productos</NavigationLink>
+        <NavigationLink href="/products">Products</NavigationLink>
       </AccordionPanel>
     </AccordionItem>
   );
@@ -34,7 +34,7 @@ const ControlledAccordion = () => {
 describe("Navigation", () => {
   test("SHOULD render an accessible controlled accordion", () => {
     render(<ControlledAccordion />);
-    const trigger = screen.getByRole("button", { name: "Catálogo" });
+    const trigger = screen.getByRole("button", { name: "Catalog" });
     const panel = document.getElementById("catalog-panel");
 
     expect(trigger).toHaveAttribute("aria-expanded", "false");
@@ -52,7 +52,7 @@ describe("Navigation", () => {
 
   test("SHOULD support keyboard activation through its native button", () => {
     render(<ControlledAccordion />);
-    const trigger = screen.getByRole("button", { name: "Catálogo" });
+    const trigger = screen.getByRole("button", { name: "Catalog" });
 
     trigger.focus();
     fireEvent.keyDown(trigger, { key: "Enter" });
