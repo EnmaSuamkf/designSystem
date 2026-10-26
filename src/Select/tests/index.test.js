@@ -3,8 +3,8 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import Select from "../index";
 
 const options = [
-  { value: "a", label: "Opción A" },
-  { value: "b", label: "Opción B" },
+  { value: "a", label: "Option A" },
+  { value: "b", label: "Option B" },
 ];
 
 describe("Select", () => {
@@ -38,12 +38,12 @@ describe("Select", () => {
       <Select
         options={options}
         value=""
-        placeholder="Elegí una opción"
+        placeholder="Choose an option"
         onChange={() => {}}
       />,
     );
     const placeholder = screen.getByRole("option", {
-      name: "Elegí una opción",
+      name: "Choose an option",
     });
     expect(placeholder).toBeDisabled();
     expect(placeholder).toHaveValue("");
