@@ -12,9 +12,7 @@ const StockLevel = ({
 }) => {
   if (reponer > 0) {
     const title = replenishLabel || `Reponer ${reponer}`;
-    return (
-      <Tag variant="status" tags={[{ title, status: replenishStatus }]} />
-    );
+    return <Tag variant="status" tags={[{ title, status: replenishStatus }]} />;
   }
 
   return <Tag variant="status" tags={[{ title: okLabel, status: okStatus }]} />;

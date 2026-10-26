@@ -11,6 +11,8 @@ export { default as Box } from "./Box";
 export { default as FlexBox } from "./Flex";
 export { default as RouterLink } from "./RouterLink";
 export { default as Input } from "./Input";
+export { default as Select } from "./Select";
+export { default as Field } from "./Field";
 export { StyledLi, StyledUl } from "./UnorderList";
 export { default as StyledLink } from "./StyledLink";
 export * from "./Icons";
