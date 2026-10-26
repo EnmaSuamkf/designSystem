@@ -264,6 +264,11 @@ const DesktopTable = ({ columns, rows }) => (
   </Scroll>
 );
 
+DesktopTable.propTypes = {
+  columns: columnsPropType,
+  rows: rowsPropType,
+};
+
 // Table from the mobile breakpoint up; below it every row becomes a card with
 // one label/value line per column (the column header is the label) and the
 // "actions" column as a full-width block. The consumer tells which one to use.
