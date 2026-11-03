@@ -1,7 +1,14 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-console */
 import React, { useEffect, createContext, useContext, useState } from "react";
+import { StyleSheetManager } from "styled-components";
+import isPropValid from "@emotion/is-prop-valid";
 const axios = require("axios");
+
+// Design props such as borderRadius or cover stay in the styles and never reach the DOM.
+// Components rendered as React components still receive every prop.
+const shouldForwardProp = (prop, elementToBeCreated) =>
+  typeof elementToBeCreated === "string" ? isPropValid(prop) : true;
 
 const AVOID_KEYS = ["_id", "__v", "createdAt", "updatedAt"];
 
@@ -44,8 +51,10 @@ export const DesignSystemProvider = ({ children, url, headers, theme }) => {
   }, [refresh]);
 
   return (
-    <DesignSytemContext.Provider value={handlerUpdateTheme}>
-      {children}
-    </DesignSytemContext.Provider>
+    <StyleSheetManager shouldForwardProp={shouldForwardProp}>
+      <DesignSytemContext.Provider value={handlerUpdateTheme}>
+        {children}
+      </DesignSytemContext.Provider>
+    </StyleSheetManager>
   );
 };

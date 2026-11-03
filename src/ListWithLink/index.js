@@ -23,7 +23,11 @@ const ListWithLink = ({ list, title, onClick = () => {} }) => {
       </Box>
       {list.map((item) => {
         return (
-          <FlexBox key={item._id} flexDirection="column">
+          <FlexBox
+            key={item._id}
+            flexDirection="column"
+            mb="$theme_spacing_small"
+          >
             <Box>
               <StyledLink {...getLinkProps(item, () => onClick(item))}>
                 {item.name}
