@@ -18,4 +18,14 @@ describe("Box", () => {
       expect.objectContaining(props),
     );
   });
+
+  it("renders the role it receives", () => {
+    render(<Box role="alert">Saved</Box>);
+    expect(screen.getByRole("alert")).toHaveTextContent("Saved");
+  });
+
+  it("does not set a role when none is given", () => {
+    render(<Box data-testid="plain">Plain</Box>);
+    expect(screen.getByTestId("plain")).not.toHaveAttribute("role");
+  });
 });

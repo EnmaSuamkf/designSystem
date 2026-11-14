@@ -19,6 +19,7 @@ const BoxComponent = React.forwardRef((props, ref) => {
     onMouseEnter,
     onMouseLeave,
     id,
+    role,
     sx,
   } = props;
 
@@ -32,6 +33,7 @@ const BoxComponent = React.forwardRef((props, ref) => {
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
       id={id}
+      role={role}
       style={sx}
       ref={ref}
     >
