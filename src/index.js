@@ -58,6 +58,7 @@ export {
 export { default as Stepper } from "./Stepper";
 export { default as StockLevel } from "./StockLevel";
 export { default as ListWithLink } from "./ListWithLink";
+export { default as Frame } from "./Frame";
 export {
   MOBILE_BREAKPOINT,
   mobileQuery,
