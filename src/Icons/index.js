@@ -10,6 +10,7 @@ export { default as Tiktok } from "./Tiktok";
 export { default as Pinterest } from "./Pinterest";
 export { default as ChevronUp } from "./ChevronUp";
 export { default as ChevronDown } from "./ChevronDown";
+export { default as Close } from "./Close";
 export { default as Medal } from "./Medal";
 export { default as Upload } from "./Upload";
 export { default as LeftArrow } from "./LeftArrow";
